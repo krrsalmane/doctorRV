@@ -80,21 +80,7 @@
 
 
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent actual form submission
-
-
-        const role = document.getElementById('role').value;
-
-
-        if (role === 'patient') {
-            window.location.href = 'appointment.jsp';
-        } else if (role === 'doctor') {
-            window.location.href = 'patient-list.jsp';
-        } else {
-            alert('Please select a role');
-        }
-    });
+  ghj
 
 
 </script>
