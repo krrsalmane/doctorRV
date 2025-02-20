@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .background-image {
-            background-image: url('doctor-looking-at-clipboard.jpg');
+            background-image: url('image/doctor-looking-at-clipboard.jpg');
             background-size: cover;
             background-position: center;
         }

@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .background-image {
-            background-image: url('doctors-medical-gear.jpg');
+            background-image: url('image/doctors-medical-gear.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

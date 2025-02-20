@@ -90,7 +90,7 @@
         if (role === 'patient') {
             window.location.href = 'appointment.jsp';
         } else if (role === 'doctor') {
-            window.location.href = 'patient-list.jsp';
+            window.location.href = 'doctorDashbord.jsp';
         } else {
             alert('Please select a role');
         }

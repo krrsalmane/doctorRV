@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .background-image {
-            background-image: url('nurse-helping-patient.jpg');
+            background-image: url('image/nurse-helping-patient.jpg');
 
             background-size: cover;
             background-position: center;
@@ -79,10 +79,11 @@
 
 
             <div class="pt-2">
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded-lg shadow-lg transition duration-300">
+                <a href="patient-list.jsp" class="w-full block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded-lg shadow-lg text-center transition duration-300">
                     Submit
-                </button>
+                </a>
             </div>
+
         </div>
     </form>
 </div>
