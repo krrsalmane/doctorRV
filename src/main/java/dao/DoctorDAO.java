@@ -1,4 +1,4 @@
-package com.doctor.DAO;
+package dao;
 
 public class DoctorDAO {
 }
