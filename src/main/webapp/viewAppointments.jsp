@@ -31,7 +31,7 @@
         <c:when test="${empty appointments}">
             <p class="text-center text-gray-600">No appointments found. Book one now!</p>
             <div class="text-center mt-4">
-                <a href="/MedicalAppointmentApp/bookAppointment.jsp" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Book an Appointment</a>
+                <a href="/medicare/bookAppointment.jsp" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Book an Appointment</a>
             </div>
         </c:when>
         <c:otherwise>
@@ -56,7 +56,7 @@
                             <td class="py-2 px-4 border-b text-center">${appointment.status}</td>
                             <td class="py-2 px-4 border-b text-center">
                                 <c:if test="${appointment.status != 'Cancelled'}">
-                                    <form action="/MedicalAppointmentApp/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
+                                    <form action="/medicare/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
                                         <input type="hidden" name="action" value="cancel">
                                         <input type="hidden" name="appointmentId" value="${appointment.appointmentId}">
                                         <input type="hidden" name="patientId" value="${sessionScope.patientId}">
@@ -75,10 +75,10 @@
 
 <!-- Footer Navigation -->
 <footer class="mt-6 flex justify-center space-x-4">
-    <a href="/MedicalAppointmentApp/bookAppointment.jsp">
+    <a href="/medicare/bookAppointment.jsp">
         <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Book Another</button>
     </a>
-    <a href="/MedicalAppointmentApp/index.jsp">
+    <a href="/medicare/index.jsp">
         <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Back to Home</button>
     </a>
 </footer>

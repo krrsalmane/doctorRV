@@ -9,12 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.appointments.dao.DBConnection;
+import dao.DBConnection;
 
-@WebServlet("/appointments")
+@WebServlet("/Appointments")
 public class AppointmentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    // Handle POST request (booking or cancelling appointments)
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -24,10 +25,11 @@ public class AppointmentServlet extends HttpServlet {
         } else if ("cancel".equals(action)) {
             cancelAppointment(request, response);
         } else {
-            response.sendRedirect("/MedicalAppointmentApp/index.jsp");
+            response.sendRedirect("/medicare/index.jsp");
         }
     }
 
+    // Book an appointment
     private void bookAppointment(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int patientId = Integer.parseInt(request.getParameter("patientId"));
@@ -48,21 +50,17 @@ public class AppointmentServlet extends HttpServlet {
             stmt.setString(4, reason);
 
             stmt.executeUpdate();
-            response.sendRedirect("/MedicalAppointmentApp/viewAppointments.jsp");
+            response.sendRedirect("/medicare/viewAppointments.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Error booking appointment.");
             request.getRequestDispatcher("/bookAppointment.jsp").forward(request, response);
         } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(stmt, conn);
         }
     }
 
+    // Cancel an appointment
     private void cancelAppointment(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int appointmentId = Integer.parseInt(request.getParameter("appointmentId"));
@@ -77,23 +75,23 @@ public class AppointmentServlet extends HttpServlet {
             stmt.setInt(1, appointmentId);
 
             stmt.executeUpdate();
-            HttpSession session = request.getSession();
-            if (session.getAttribute("patientId") != null) {
-                response.sendRedirect("/MedicalAppointmentApp/viewAppointments.jsp");
-            } else if (session.getAttribute("doctorId") != null) {
-                response.sendRedirect("/MedicalAppointmentApp/doctorDashboard.jsp");
-            }
+            response.sendRedirect("/medicare/viewAppointments.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             request.setAttribute("error", "Error cancelling appointment.");
             request.getRequestDispatcher("/cancelAppointment.jsp").forward(request, response);
         } finally {
-            try {
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(stmt, conn);
+        }
+    }
+
+    // Helper method to close database resources
+    private void closeResources(PreparedStatement stmt, Connection conn) {
+        try {
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

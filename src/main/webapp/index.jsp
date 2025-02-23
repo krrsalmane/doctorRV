@@ -35,7 +35,7 @@
 <!-- Glass Login Form -->
 <div class="glass-effect p-6 rounded-lg shadow-lg w-full max-w-sm">
     <h2 class="text-xl font-semibold mb-4 text-gray-800">Login</h2>
-    <form action="/MedicalAppointmentApp/loginServlet" method="post">
+    <form action="/medicare/AppointmentServlet" method="post">
         <div class="mb-4">
             <label for="role" class="block text-gray-700 text-sm font-medium mb-1">Select Role</label>
             <select id="role" name="role" class="w-full border rounded py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline" required>

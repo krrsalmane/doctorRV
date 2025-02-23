@@ -54,14 +54,14 @@
                             <td class="py-2 px-4 border-b text-center flex justify-center space-x-2">
                                 <c:if test="${appointment.status != 'Cancelled'}">
                                     <!-- Cancel Form -->
-                                    <form action="/MedicalAppointmentApp/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');" class="inline">
+                                    <form action="/medicare/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');" class="inline">
                                         <input type="hidden" name="action" value="cancel">
                                         <input type="hidden" name="appointmentId" value="${appointment.appointmentId}">
                                         <input type="hidden" name="doctorId" value="${sessionScope.doctorId}">
                                         <button type="submit" class="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">Cancel</button>
                                     </form>
                                     <!-- Reschedule Link -->
-                                    <a href="/MedicalAppointmentApp/rescheduleAppointment.jsp?appointmentId=${appointment.appointmentId}" class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Reschedule</a>
+                                    <a href="/medicare/rescheduleAppointment.jsp?appointmentId=${appointment.appointmentId}" class="bg-yellow-500 text-white px-4 py-1 rounded hover:bg-yellow-600">Reschedule</a>
                                 </c:if>
                             </td>
                         </tr>
@@ -75,7 +75,7 @@
 
 <!-- Footer Navigation -->
 <footer class="mt-6 flex justify-center">
-    <a href="/MedicalAppointmentApp/index.jsp">
+    <a href="/medicare/index.jsp">
         <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Back to Home</button>
     </a>
 </footer>

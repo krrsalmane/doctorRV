@@ -5,36 +5,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.appointments.dao.DBConnection;
-import com.appointments.models.Appointment;
+import dao.DBConnection;
+import models.Appointment;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/doctor")
 public class DoctorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    // Handle GET requests to view doctor's appointments
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Integer doctorId = (Integer) session.getAttribute("doctorId");
 
         if (doctorId != null) {
-            // View doctor's appointments
             List<Appointment> appointments = getAppointmentsByDoctor(doctorId);
             request.setAttribute("appointments", appointments);
-            request.getRequestDispatcher("/doctorDashboard.jsp").forward(request, response);
+            request.getRequestDispatcher("/viewDoctorAppointments.jsp").forward(request, response);
         } else {
-            response.sendRedirect("/MedicalAppointmentApp/index.jsp");
+            response.sendRedirect("/medicare/index.jsp");
         }
     }
 
+    // Handle POST requests (login)
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -42,10 +43,11 @@ public class DoctorServlet extends HttpServlet {
         if ("login".equals(action)) {
             loginDoctor(request, response);
         } else {
-            response.sendRedirect("/MedicalAppointmentApp/index.jsp");
+            response.sendRedirect("/medicare/index.jsp");
         }
     }
 
+    // Doctor login method
     private void loginDoctor(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");
@@ -70,7 +72,7 @@ public class DoctorServlet extends HttpServlet {
             if (rs.next()) {
                 int doctorId = rs.getInt("doctor_id");
                 session.setAttribute("doctorId", doctorId);
-                response.sendRedirect("/MedicalAppointmentApp/doctorDashboard.jsp");
+                response.sendRedirect("/medicare/viewDoctorAppointments.jsp");
             } else {
                 request.setAttribute("error", "Invalid doctor credentials.");
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
@@ -80,16 +82,11 @@ public class DoctorServlet extends HttpServlet {
             request.setAttribute("error", "Database error occurred.");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(stmt, conn);
         }
     }
 
+    // Helper method to get appointments for a doctor
     private List<Appointment> getAppointmentsByDoctor(int doctorId) {
         List<Appointment> appointments = new ArrayList<>();
         Connection conn = null;
@@ -116,14 +113,18 @@ public class DoctorServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources(stmt, conn);
         }
         return appointments;
+    }
+
+    // Helper method to close database resources
+    private void closeResources(PreparedStatement stmt, Connection conn) {
+        try {
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -31,7 +31,7 @@
         <c:when test="${empty appointment}">
             <p class="text-center text-gray-600">No appointment found to cancel.</p>
             <div class="text-center mt-4">
-                <a href="/MedicalAppointmentApp/index.jsp" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Back to Home</a>
+                <a href="/medicare/index.jsp" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Back to Home</a>
             </div>
         </c:when>
         <c:otherwise>
@@ -44,7 +44,7 @@
                 <p><strong>Status:</strong> ${appointment.status}</p>
             </div>
             <c:if test="${appointment.status != 'Cancelled'}">
-                <form action="/MedicalAppointmentApp/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
+                <form action="/medicare/appointments" method="post" onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
                     <input type="hidden" name="action" value="cancel">
                     <input type="hidden" name="appointmentId" value="${appointment.appointmentId}">
                     <!-- Include user context based on role -->
@@ -70,17 +70,17 @@
 <footer class="mt-6 flex justify-center space-x-4">
     <c:choose>
         <c:when test="${not empty sessionScope.patientId}">
-            <a href="/MedicalAppointmentApp/viewAppointments.jsp">
+            <a href="/medicare/viewAppointments.jsp">
                 <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Back to Appointments</button>
             </a>
         </c:when>
         <c:when test="${not empty sessionScope.doctorId}">
-            <a href="/MedicalAppointmentApp/doctorDashboard.jsp">
+            <a href="/medicare/doctorDashboard.jsp">
                 <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Back to Dashboard</button>
             </a>
         </c:when>
         <c:otherwise>
-            <a href="/MedicalAppointmentApp/index.jsp">
+            <a href="/medicare/index.jsp">
                 <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Back to Home</button>
             </a>
         </c:otherwise>

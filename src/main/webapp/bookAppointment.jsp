@@ -23,7 +23,7 @@
 <!-- Centered Content -->
 <div class="glass-effect p-6 rounded-2xl shadow-2xl w-full max-w-md text-center">
     <h2 class="text-2xl font-bold text-gray-800 mb-6">Request Appointment</h2>
-    <form action="/MedicalAppointmentApp/AppointmentServlet" method="post">
+    <form action="/medicare/AppointmentServlet" method="post">
         <input type="hidden" name="action" value="book">
         <div class="space-y-4">
             <div>
